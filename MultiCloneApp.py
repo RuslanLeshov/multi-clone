@@ -15,7 +15,7 @@ class MultiCloneApp(App):
     ]
 
     TITLE = "Project Initializer"
-    CSS_PATH = "ProjectInitializer.tcss"
+    CSS_PATH = "MultiClone.tcss"
 
     def compose(self) -> ComposeResult:
         yield Header()
