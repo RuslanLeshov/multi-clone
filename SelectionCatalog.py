@@ -14,8 +14,8 @@ class SelectionCatalog(TabbedContent):
     
     query: reactive[str] = reactive("")
 
-    selections: list[Selection] = [Selection(project.name, project.id) for project in projects_data]
-    bundle_selections: list[Selection] = [Selection(bundle["name"], bundle["id"]) for bundle in bundles_data]
+    selections: list[Selection] = [Selection(project["name"], project_id) for project_id, project in projects_data.items()]
+    bundle_selections: list[Selection] = [Selection(bundle["name"], bundle_id) for bundle_id, bundle in bundles_data.items()]
 
     #selections = [
     #    Selection("Falken's Maze", "option0"),
