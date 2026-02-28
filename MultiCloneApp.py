@@ -14,7 +14,7 @@ class MultiCloneApp(App):
         ("q", "quit", "Выход"),
     ]
 
-    TITLE = "Project Initializer"
+    TITLE = "MultiClone - multiple git repositories cloner"
     CSS_PATH = "MultiClone.tcss"
 
     def compose(self) -> ComposeResult:
