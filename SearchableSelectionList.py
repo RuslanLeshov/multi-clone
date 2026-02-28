@@ -23,7 +23,7 @@ class SearchableSelectionList(SelectionList[int]):
         }
         self._options = options
         log.info(f"Updated options: {self._options}")
-        log.info(f"Full options: {self.full_options}")
+        log.info(f"Full options: {self.full_options}") 
         
         if options:
             self.highlighted = 0
@@ -35,7 +35,3 @@ class SearchableSelectionList(SelectionList[int]):
     @on(SelectionList.SelectedChanged)
     def change_selection(self, event: SelectionList.SelectedChanged) -> None:
         log.info(f"selected: {self.selected}")
-
-
-        
-        

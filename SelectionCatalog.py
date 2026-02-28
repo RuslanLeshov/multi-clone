@@ -16,19 +16,7 @@ class SelectionCatalog(TabbedContent):
 
     selections: list[Selection] = [Selection(project["name"], project_id) for project_id, project in projects_data.items()]
     bundle_selections: list[Selection] = [Selection(bundle["name"], bundle_id) for bundle_id, bundle in bundles_data.items()]
-
-    #selections = [
-    #    Selection("Falken's Maze", "option0"),
-    #    Selection("Black Jack", "option1"),
-    #    Selection("Gin Rummy", "option2"),
-    #    Selection("Hearts", "option3"),
-    #    Selection("Bridge", "option4"),
-    #    Selection("Checkers", "option5"),
-    #    Selection("Chess", "option6"),
-    #    Selection("Poker", "option7"),
-    #    Selection("Fighter Combat", "option8")
-    #]
-
+    
     def on_mount(self) -> None:
         filtered_selections = [s for s in self.selections if self.query in s.prompt.plain.lower()]
         
@@ -41,7 +29,7 @@ class SelectionCatalog(TabbedContent):
         projects_list.focus()
 
         self.add_pane(
-            TabPane("Репозитории", SearchBar(), projects_list),
+            TabPane("Репозитории", SearchBar(), projects_list, id="projects"),
         )
 
         bundles_list = SelectionList(
@@ -50,7 +38,7 @@ class SelectionCatalog(TabbedContent):
         )
 
         self.add_pane(
-            TabPane("Проекты", bundles_list)
+            TabPane("Проекты", bundles_list, id="bundles")
         )
 
     @on(Input.Changed)
