@@ -10,6 +10,8 @@ from textual import on
 from textual.events import Mount, Key
 from textual.binding import Binding
 from Projects import data as projects_data, bundles as bundles_data
+from textual import log
+from MultiCloner import install_projects, install_bundles
 
 
 class MultiCloneApp(App):
@@ -20,6 +22,7 @@ class MultiCloneApp(App):
                 show=True, priority=True),
         Binding("f", "focus_search", "Поиск", show=True),
         Binding("escape", "focus_list", "Список", show=True, priority=True),
+        Binding("ctrl+enter", "confirm_choice", "Подтвердить выбор", show=True, priority=True)
     ]
 
     TITLE = "MultiClone"
@@ -73,7 +76,8 @@ class MultiCloneApp(App):
         self.query_one(SelectedListPanel).update_details(selected_rows)
 
     def action_confirm_choice(self):
-        active_tab = self.query_one(TabbedContent).active_pane
+        tabbed_content = self.query_one(TabbedContent)
+        active_tab = tabbed_content.active_pane
         selected_list = active_tab.query_one(SelectionList)
 
         if not selected_list:
@@ -81,7 +85,12 @@ class MultiCloneApp(App):
 
         selected_ids = selected_list.selected
         selected_rows = [
-            option.prompt.plain for option in selected_list.options if option.value in selected_ids]
+            option.value for option in selected_list.options if option.value in selected_ids]
+        log.info(f"Выбранные элементы: {selected_rows}")
+        if tabbed_content.active == "projects":
+            install_projects(selected_rows)
+        elif tabbed_content.active == "bundles":
+            install_bundles(selected_rows)
 
     def action_switch_tab(self):
         tabbed_content = self.query_one(TabbedContent)
